@@ -1,10 +1,16 @@
-const express = require('express'
-const app = express();
+const express = require('express');
+const app = require("express")();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+app.use(express.static('public'));
+
 app.get('/', function(req,res){
-  res.send('<h1>Hello world</h1>');
+  res.sendFile('index.html');
+});
+
+io.on('connection', function() {
+  console.log('a user connected');
 });
 
 http.listen(3000, function(){
